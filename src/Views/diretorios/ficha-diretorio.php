@@ -136,7 +136,7 @@ $buscaFiliadosTotais = FiliadoController::buscarPorGenero($diretorioId);
                 <div class="card-body p-3">
                     <h5 class="card-title mb-1 text-primary"><i class="bi bi-person-badge"></i> Mandatarios | <a class="text-primary small" href="?section=cargos-eletivos&diretorio=<?= $diretorioId ?>" role="button"> novo mandatário</a></small></h5>
                     <p class="mb-0 text-muted small mb-2">
-                        Confira todos os mandatários desse diretório.
+                        Confira todos os mandatários com mandatos vigente desse diretório.
                     </p>
                     <div class="table-responsive mb-2">
                         <table class="table table-striped table-hover table-bordered mb-0 small">
