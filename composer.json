@@ -1,0 +1,29 @@
+{
+    "name": "jairojeffersont/framework",
+    "description": "A Simple PHP Application Framework",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "JairoJeffersont\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jairo Santos",
+            "email": "jairojeffersont@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "illuminate/database": "^12.28",
+        "vlucas/phpdotenv": "^5.6",
+        "ramsey/uuid": "^4.9",
+        "jairojeffersont/easy-logger": "^1.0",
+        "jairojeffersont/file-uploader": "^1.0",
+        "phpmailer/phpmailer": "^6.10",
+        "phpoffice/phpspreadsheet": "^5.4"
+    },
+    "keywords": ["framework", "php", "app"],
+    "homepage": "https://github.com/JairoJeffersont/framework"
+}
