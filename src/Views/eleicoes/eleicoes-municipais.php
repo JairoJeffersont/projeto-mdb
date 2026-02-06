@@ -41,13 +41,8 @@ if (!isset($_GET['situacao'])) {
     $situacaoGet = $_GET['situacao'];
 }
 
-if ($tipoGet == 'Vereador') {
-    $BuscaResultadosSelect = EleicoesController::pegarDadosEleicaoVereador($anoGet);
-    $BuscaResultados = EleicoesController::pegarDadosEleicaoVereador($anoGet, $partidoGet, $situacaoGet, $municipioGet);
-} else if ($tipoGet == 'Prefeito') {
-    $BuscaResultadosSelect = EleicoesController::pegarDadosEleicaoPrefeito($anoGet);
-    $BuscaResultados = EleicoesController::pegarDadosEleicaoPrefeito($anoGet, $partidoGet, $situacaoGet, $municipioGet);
-}
+$BuscaResultadosSelect = EleicoesController::pegarDadosEleicao($tipoGet,$anoGet);
+$BuscaResultados = EleicoesController::pegarDadosEleicao($tipoGet,$anoGet, $partidoGet, $situacaoGet, $municipioGet);
 
 
 

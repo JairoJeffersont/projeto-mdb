@@ -69,17 +69,22 @@ class EleicoesController {
         return $dados;
     }
 
-    public static function pegarDadosEleicaoVereador(?string $ano = null, ?string $partido = null, ?string $situacao = null, ?string $municipio = null): array {
+    public static function pegarDadosEleicao(
+        string $cargo,
+        ?string $ano = null,
+        ?string $partido = null,
+        ?string $situacao = null,
+        ?string $municipio = null
+    ): array {
 
         try {
-
             $instancia = new self();
             $dados = $instancia->abrirCsv($ano);
 
             // 1️⃣ Filtra primeiro
-            $filtrados = array_filter($dados, function ($item) use ($partido, $situacao, $municipio) {
+            $filtrados = array_filter($dados, function ($item) use ($cargo, $partido, $situacao, $municipio) {
 
-                if ($item['DS_CARGO'] !== 'Vereador') {
+                if ($item['DS_CARGO'] !== $cargo) {
                     return false;
                 }
 
@@ -105,70 +110,8 @@ class EleicoesController {
                 $id = $item['SQ_CANDIDATO'];
 
                 if (!isset($agrupados[$id])) {
-                    // primeira vez → salva tudo
                     $agrupados[$id] = $item;
                 } else {
-                    // já existe → soma os votos
-                    $agrupados[$id]['QT_VOTOS_NOMINAIS_VALIDOS'] += (int) $item['QT_VOTOS_NOMINAIS_VALIDOS'];
-                }
-            }
-
-            return [
-                'status'  => 'success',
-                'message' => 'Dados eleitorais carregados com sucesso',
-                'data'    => array_values($agrupados)
-            ];
-        } catch (\Exception $e) {
-            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
-
-            return [
-                'status'   => 'server_error',
-                'message'  => 'Erro interno do servidor',
-                'error_id' => $errorId
-            ];
-        }
-    }
-
-    public static function pegarDadosEleicaoPrefeito(?string $ano = null, ?string $partido = null, ?string $situacao = null, ?string $municipio = null): array {
-
-        try {
-
-            $instancia = new self();
-            $dados = $instancia->abrirCsv($ano);
-
-            // 1️⃣ Filtra primeiro
-            $filtrados = array_filter($dados, function ($item) use ($partido, $situacao, $municipio) {
-
-                if ($item['DS_CARGO'] !== 'Prefeito') {
-                    return false;
-                }
-
-                if ($partido !== null && $item['NR_PARTIDO'] !== $partido) {
-                    return false;
-                }
-
-                if ($municipio !== null && $item['CD_MUNICIPIO'] !== $municipio) {
-                    return false;
-                }
-
-                if ($situacao !== null && $item['CD_SIT_TOT_TURNO'] !== $situacao) {
-                    return false;
-                }
-
-                return true;
-            });
-
-            // 2️⃣ Agrupa por SQ_CANDIDATO somando votos
-            $agrupados = [];
-
-            foreach ($filtrados as $item) {
-                $id = $item['SQ_CANDIDATO'];
-
-                if (!isset($agrupados[$id])) {
-                    // primeira vez → salva tudo
-                    $agrupados[$id] = $item;
-                } else {
-                    // já existe → soma os votos
                     $agrupados[$id]['QT_VOTOS_NOMINAIS_VALIDOS'] += (int) $item['QT_VOTOS_NOMINAIS_VALIDOS'];
                 }
             }

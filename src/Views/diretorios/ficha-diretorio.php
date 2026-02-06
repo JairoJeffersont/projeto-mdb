@@ -211,7 +211,7 @@ $buscaFiliadosTotais = FiliadoController::buscarPorGenero($diretorioId);
 
             <div class="card mb-2 ">
                 <div class="card-body p-3">
-                    <h5 class="card-title mb-1 text-primary"><i class="bi bi-boxes"></i> Núcleos | <small><a class="text-primary" href="?section=nucleos&diretorio=<?= $diretorioId ?>" role="button"> adicionar núcleo</a></small></h5>
+                    <h5 class="card-title mb-1 text-primary"><i class="bi bi-boxes"></i> Núcleos | <small><a class="text-primary" href="?section=nucleos&diretorio=<?= $diretorioId ?>" role="button"> novo núcleo</a></small></h5>
                     <p class="mb-0 text-muted small mb-2">
                         Confira a lista de filiados que fazem parte desse diretório.
                     </p>
