@@ -22,7 +22,8 @@
         "jairojeffersont/easy-logger": "^1.0",
         "jairojeffersont/file-uploader": "^1.0",
         "phpmailer/phpmailer": "^6.10",
-        "phpoffice/phpspreadsheet": "^5.4"
+        "phpoffice/phpspreadsheet": "^5.4",
+        "league/csv": "^9.28"
     },
     "keywords": ["framework", "php", "app"],
     "homepage": "https://github.com/JairoJeffersont/framework"

@@ -201,7 +201,6 @@ CREATE TABLE
         CONSTRAINT fk_ccm_cargo FOREIGN KEY (cargo_id) REFERENCES cargo_comissao (id) ON DELETE CASCADE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
-ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE
     nucleo (

@@ -153,12 +153,15 @@ $buscarMembro = CargoEletivoController::listarMembrosCargoEletivo($cargoId);
 
             <div class="card mb-2 ">
                 <div class="card-body p-3">
+                    <p class="mb-0 text-muted small mb-2">
+                        Preencha o início e fim do mandato. <br><b>Ex. Eleição 2022 (01/01/2023 - 31/12/2026)</b>
+                    </p>
                     <form class="row g-2 align-items-end mb-0" method="post">
                         <input type="hidden" name="filiado_id" id="filiado_id" />
-                        <div class="col-md-1 col-4">
+                        <div class="col-md-1 col-6">
                             <input type="date" class="form-control form-control-sm" name="inicio_mandato">
                         </div>
-                        <div class="col-md-1 col-4">
+                        <div class="col-md-1 col-6">
                             <input type="date" class="form-control form-control-sm" name="fim_mandato">
                         </div>
                         <div class="col-sm-2 col-12 text-start ">
@@ -205,7 +208,7 @@ $buscarMembro = CargoEletivoController::listarMembrosCargoEletivo($cargoId);
                                     value="<?= $buscaGet ?>">
                             </div>
 
-                            <div class="col-sm-2 col-6">
+                            <div class="col-sm-2 col-12">
                                 <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-search"></i> buscar</button>
                                 <a href="?section=novo-filiado&diretorio=<?= $diretorioId ?>" type="button" class="btn btn-success btn-sm confirm-action loading-modal" data-message="Deseja inserir um novo filiado?"><i class="bi bi-plus"></i> novo filiado</a>
                             </div>

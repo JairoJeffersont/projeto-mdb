@@ -46,6 +46,33 @@ function normalizeValue(str) {
         .toUpperCase();                // Deixa em maiúsculo
 }
 
+// Método para popular os partidos no select
+$.fn.populatePartidos = function () {
+    const $selectPartido = $(this);
+    const selectedPartido = $selectPartido.attr('data-selected') || '';
+    const legislatura = $selectPartido.attr('data-legislatura') || '';
+
+    // Monta a URL dinamicamente
+    let url = 'https://dadosabertos.camara.leg.br/api/v2/partidos?itens=100&ordem=ASC&ordenarPor=sigla';
+    if (legislatura) {
+        url += `&idLegislatura=${legislatura}`;
+    }
+
+    // Estado inicial
+    $selectPartido.empty().append('<option>Carregando...</option>');
+
+    // Requisição para buscar os partidos
+    $.getJSON(url, function (data) {
+        const partidos = data.dados || [];
+        $selectPartido.empty().append('<option value="">Partido não informado</option>');
+
+        partidos.forEach(partido => {
+            const isSelected = partido.sigla === selectedPartido ? 'selected' : '';
+            $selectPartido.append(`<option value="${partido.sigla}" ${isSelected}>${partido.sigla}</option>`);
+        });
+    });
+};
+
 // Método para popular os estados no select
 $.fn.populateEstados = function () {
     const $selectEstado = $(this);
