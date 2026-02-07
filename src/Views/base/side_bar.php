@@ -8,5 +8,6 @@
         <p style="margin-left: 10px; margin-top:20px;font-weight: bolder;" class="text-muted"><i class="bi bi-list"></i> Eleições</p>
         <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?section=eleicoes-municipais&tipo=Prefeito">Prefeito</a>
         <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?section=eleicoes-municipais&tipo=Vereador">Vereador</a>
+        
     </div>
 </div>

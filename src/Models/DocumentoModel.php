@@ -5,17 +5,20 @@ namespace JairoJeffersont\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class DocumentoModel extends Model {
+
     protected $table = 'documento';
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
     public $incrementing = false;
+    public $timestamps = true;
 
     protected $fillable = [
+        'id',
         'tipo_id',
         'titulo',
         'arquivo',
         'diretorio_id',
-        'usuario_id',
-        'created_at',
-        'updated_at'
+        'usuario_id'
     ];
 
     public function tipo() {

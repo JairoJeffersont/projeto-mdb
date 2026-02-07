@@ -28,7 +28,7 @@ CREATE TABLE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 INSERT INTO
-    DIRETORIO (ID, TIPO_ID, MUNICIPIO)
+    diretorio (id, tipo_id, municipio)
 VALUES
     (UUID (), 1, 'DIRETÓRIO ESTADUAL'),
     (UUID (), 2, 'AMAPÁ'),
@@ -220,6 +220,12 @@ CREATE TABLE
     documento_tipo (
         id CHAR(36) NOT NULL COMMENT 'UUID do tipo de documento',
         descricao VARCHAR(100) NOT NULL COMMENT 'Descrição do tipo de documento',
+        diretorio_id CHAR(36) NOT NULL COMMENT 'UUID do diretório associado ao tipo de documento',
+        usuario_id CHAR(36) NULL DEFAULT NULL COMMENT 'UUID do usuário que criou o registro',
+        created_at TIMESTAMP NULL DEFAULT NULL,
+        updated_at TIMESTAMP NULL DEFAULT NULL,
+        CONSTRAINT documentos_tipos_usuario_id_fk FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE RESTRICT,
+        CONSTRAINT documentos_tipos_diretorio_id_fk FOREIGN KEY (diretorio_id) REFERENCES diretorio (id) ON DELETE RESTRICT,
         PRIMARY KEY (id),
         UNIQUE KEY documentos_tipos_descricao_unico (descricao)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;

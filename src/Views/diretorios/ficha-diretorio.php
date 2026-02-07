@@ -189,7 +189,7 @@ $buscaFiliadosTotais = FiliadoController::buscarPorGenero($diretorioId);
                                     }
 
                                     if (!$exibiuAlgum) {
-                                        echo '<tr><td colspan="2">Nenhum cargo com membros no ano corrente</td></tr>';
+                                        echo '<tr><td colspan="2">Nenhum mandatário com mandato ativo</td></tr>';
                                     }
                                 } else if ($buscaCargos['status'] === 'empty') {
                                     echo '<tr><td colspan="2">' . htmlspecialchars($buscaCargos['message']) . '</td></tr>';

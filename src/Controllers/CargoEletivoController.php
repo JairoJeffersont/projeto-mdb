@@ -276,4 +276,52 @@ class CargoEletivoController {
             ];
         }
     }
+
+    public static function listarCargosPorFiliado(string $filiado_id): array {
+    try {
+        // Busca o filiado com os cargos eletivos vinculados
+        $filiado = FiliadoModel::with('cargosEletivos')->find($filiado_id);
+
+        if (!$filiado) {
+            return [
+                'status'  => 'not_found',
+                'message' => 'Filiado não encontrado'
+            ];
+        }
+
+        // 👉 quando não houver cargos
+        if ($filiado->cargosEletivos->isEmpty()) {
+            return [
+                'status'  => 'empty',
+                'message' => 'Este filiado não possui cargos eletivos vinculados',
+                'data'    => []
+            ];
+        }
+
+        // Mapeia os cargos
+        $cargos = $filiado->cargosEletivos->map(function ($cargo) {
+            return [
+                'id'            => $cargo->id,
+                'descricao'     => $cargo->descricao,
+                'inicio_mandato'=> $cargo->pivot->inicio_mandato,
+                'fim_mandato'   => $cargo->pivot->fim_mandato
+            ];
+        })->toArray();
+
+        return [
+            'status' => 'success',
+            'data'   => $cargos
+        ];
+
+    } catch (\Exception $e) {
+        $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+
+        return [
+            'status'   => 'server_error',
+            'message'  => 'Erro interno do servidor',
+            'error_id' => $errorId
+        ];
+    }
+}
+
 }

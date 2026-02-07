@@ -9,65 +9,66 @@ use League\Csv\Reader;
 class EleicoesController {
 
     private function abrirCsv($ano): array {
-        $arquivo = __DIR__ . '/../../public/csv/votacao_candidato_munzona_' . $ano . '_AP.csv';
-        if (!file_exists($arquivo)) {
-            throw new \RuntimeException('Arquivo CSV não encontrado.');
-        }
+    $arquivo = __DIR__ . '/../../public/csv/votacao_candidato_munzona_' . $ano . '_AP.csv';
 
-        $csv = Reader::createFromPath($arquivo, 'r');
-        $csv->setDelimiter(';');
-        $csv->setHeaderOffset(0);
-
-        $colunas = [
-            'ANO_ELEICAO',
-            'NM_MUNICIPIO',
-            'DS_CARGO',
-            'NM_CANDIDATO',
-            'NM_URNA_CANDIDATO',
-            'DS_SITUACAO_JULGAMENTO',
-            'SG_PARTIDO',
-            'NR_PARTIDO',
-            'NM_COLIGACAO',
-            'DS_COMPOSICAO_COLIGACAO',
-            'QT_VOTOS_NOMINAIS_VALIDOS',
-            'DS_SIT_TOT_TURNO',
-            'CD_SIT_TOT_TURNO',
-            'SQ_CANDIDATO',
-            'SQ_COLIGACAO',
-            'CD_MUNICIPIO',
-            'SQ_CANDIDATO'
-        ];
-
-        $dados = [];
-
-        foreach ($csv->getRecords() as $linha) {
-
-            $linha = array_map(
-                fn($v) => mb_convert_encoding($v, 'UTF-8', 'ISO-8859-1'),
-                $linha
-            );
-
-            $linha = array_intersect_key($linha, array_flip($colunas));
-
-            // 🔹 remover acentos do município
-            if (isset($linha['NM_MUNICIPIO'])) {
-                if (class_exists('Transliterator')) {
-                    $linha['NM_MUNICIPIO'] = transliterator_transliterate(
-                        'Any-Latin; Latin-ASCII; [:Nonspacing Mark:] Remove; Lower(); Upper()',
-                        $linha['NM_MUNICIPIO']
-                    );
-                } else {
-                    $linha['NM_MUNICIPIO'] = strtoupper(
-                        iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $linha['NM_MUNICIPIO'])
-                    );
-                }
-            }
-
-            $dados[] = $linha;
-        }
-
-        return $dados;
+    if (!file_exists($arquivo)) {
+        throw new \RuntimeException('Arquivo CSV não encontrado.');
     }
+
+    $csv = Reader::from($arquivo, 'r'); // ✔️ novo método
+    $csv->setDelimiter(';');
+    $csv->setHeaderOffset(0);
+
+    $colunas = [
+        'ANO_ELEICAO',
+        'NM_MUNICIPIO',
+        'DS_CARGO',
+        'NM_CANDIDATO',
+        'NM_URNA_CANDIDATO',
+        'DS_SITUACAO_JULGAMENTO',
+        'SG_PARTIDO',
+        'NR_PARTIDO',
+        'NM_COLIGACAO',
+        'DS_COMPOSICAO_COLIGACAO',
+        'QT_VOTOS_NOMINAIS_VALIDOS',
+        'DS_SIT_TOT_TURNO',
+        'CD_SIT_TOT_TURNO',
+        'SQ_CANDIDATO',
+        'SQ_COLIGACAO',
+        'CD_MUNICIPIO',
+        'SQ_CANDIDATO'
+    ];
+
+    $dados = [];
+
+    foreach ($csv->getRecords() as $linha) {
+
+        $linha = array_map(
+            fn($v) => mb_convert_encoding($v, 'UTF-8', 'ISO-8859-1'),
+            $linha
+        );
+
+        $linha = array_intersect_key($linha, array_flip($colunas));
+
+        if (isset($linha['NM_MUNICIPIO'])) {
+            if (class_exists('Transliterator')) {
+                $linha['NM_MUNICIPIO'] = transliterator_transliterate(
+                    'Any-Latin; Latin-ASCII; [:Nonspacing Mark:] Remove; Lower(); Upper()',
+                    $linha['NM_MUNICIPIO']
+                );
+            } else {
+                $linha['NM_MUNICIPIO'] = strtoupper(
+                    iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $linha['NM_MUNICIPIO'])
+                );
+            }
+        }
+
+        $dados[] = $linha;
+    }
+
+    return $dados;
+}
+
 
     public static function pegarDadosEleicao(
         string $cargo,

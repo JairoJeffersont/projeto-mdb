@@ -1,5 +1,6 @@
 <?php
 
+use JairoJeffersont\Controllers\CargoEletivoController;
 use JairoJeffersont\Controllers\DiretorioController;
 use JairoJeffersont\Controllers\FiliadoController;
 
@@ -201,7 +202,7 @@ if ($buscaFiliado['status'] != 'success') {
                             <textarea class="form-control form-control-sm" rows="3" name="informacoes_adicionais" placeholder="Informações adicionais"><?= $buscaFiliado['data']['informacoes_adicionais'] ?></textarea>
                         </div>
 
-                        <div class="col-sm-1 col-12 text-start mt-2">
+                        <div class="col-sm-2 col-12 text-start mt-2">
                             <button type="submit" class="btn btn-success w-100 btn-sm px-4 confirm-action" data-message="Os dados desse filiado estão corretos?"><i class="bi bi-floppy"></i> Atualizar </button>
                         </div>
 
@@ -224,14 +225,17 @@ if ($buscaFiliado['status'] != 'success') {
                                 </tr>
                             </thead>
                             <tbody class="small">
-                                <tr>
-                                    <td>Deputado Federal</td>
-                                    <td>2022-2024</td>
-                                </tr>
-                                <tr>
-                                    <td>Vereador</td>
-                                    <td>2018-2022</td>
-                                </tr>
+                                <?php
+                                    $buscaMandatos = CargoEletivoController::listarCargosPorFiliado($filiadoId);
+                                    if($buscaMandatos['status'] == 'success'){
+                                        foreach($buscaMandatos['data'] as $mandato){
+                                            echo '<tr>';
+                                            echo '<td>'.$mandato['descricao'].'</td>';
+                                            echo '<td>'.date('d/m/Y', strtotime($mandato['inicio_mandato'])).' - '.date('d/m/Y', strtotime($mandato['fim_mandato'])).'</td>';
+                                            echo '</tr>';
+                                        }
+                                    }
+                                ?>
                             </tbody>
                         </table>
                     </div>
