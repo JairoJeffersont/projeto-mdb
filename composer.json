@@ -25,6 +25,15 @@
         "phpoffice/phpspreadsheet": "^5.4",
         "league/csv": "^9.28"
     },
-    "keywords": ["framework", "php", "app"],
+    "config": {
+        "platform": {
+            "php": "8.3.0"
+        }
+    },
+    "keywords": [
+        "framework",
+        "php",
+        "app"
+    ],
     "homepage": "https://github.com/JairoJeffersont/framework"
 }

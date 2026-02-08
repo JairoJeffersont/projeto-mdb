@@ -230,24 +230,6 @@ CREATE TABLE
         UNIQUE KEY documentos_tipos_descricao_unico (descricao)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
-INSERT INTO
-    documento_tipo (id, descricao)
-VALUES
-    (1, 'Ata'),
-    (2, 'Relatório'),
-    (3, 'Ofício'),
-    (4, 'Parecer'),
-    (5, 'Memorando'),
-    (6, 'Portaria'),
-    (7, 'Convocação'),
-    (8, 'Despacho'),
-    (9, 'Requerimento'),
-    (10, 'Ofício Circular'),
-    (11, 'Edital'),
-    (12, 'Projeto de Lei'),
-    (13, 'Ata de Reunião'),
-    (14, 'Relatório Técnico'),
-    (15, 'Notificação');
 
 CREATE TABLE
     documento (

@@ -63,7 +63,7 @@ if ($buscaDiretorio['status'] != 'success') {
                             <input type="text" class="form-control form-control-sm" name="email" placeholder="Email" value="<?= $buscaDiretorio['data']['email'] ?>" required>
                         </div>
                         <div class="col-md-2 col-4">
-                            <input type="text" class="form-control form-control-sm" name="telefone" data-mask="(00) 0000-0000" value=" <?= $buscaDiretorio['data']['telefone'] ?>" placeholder=" Telefone" required>
+                            <input type="text" class="form-control form-control-sm" name="telefone" data-mask="(00) 00000-0000" value=" <?= $buscaDiretorio['data']['telefone'] ?>" placeholder=" Telefone" required>
                         </div>
                         <div class="col-md-2 col-4">
                             <input type="text" class="form-control form-control-sm" name="endereco" placeholder="Endereço" value="<?= $buscaDiretorio['data']['endereco'] ?>" required>

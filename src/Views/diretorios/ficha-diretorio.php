@@ -51,7 +51,7 @@ $buscaFiliadosTotais = FiliadoController::buscarPorGenero($diretorioId);
                 <div class="col-12 col-md-6 mb-0 mb-md-0">
                     <div class="card small" style="height: 114px;">
                         <div class="card-body px-3 py-2">
-                            <h4 class="card-title mb-2 text-primary"><?= $buscaDiretorio['data']['municipio'] ?><small> | <a class="text-primary small" href="?section=editar-diretorio&diretorio=<?= $diretorioId ?>" role="button"> editar</a></small></h4>
+                            <h4 class="card-title mb-2 text-primary"><?= $buscaDiretorio['data']['municipio'] ?><small> | <a class="text-primary small loading-modal" href="?section=editar-diretorio&diretorio=<?= $diretorioId ?>" role="button"> editar</a></small></h4>
                             <p class="mb-0 text-muted">Email: <?= $buscaDiretorio['data']['email'] ?? 'Não informado' ?></p>
                             <p class="mb-0 text-muted">Endereço: <?= $buscaDiretorio['data']['endereco'] ?? 'Não informado' ?></p>
                             <p class="mb-0 text-muted">Telefone: <?= $buscaDiretorio['data']['telefone'] ?? 'Não informado' ?></p>
@@ -86,7 +86,7 @@ $buscaFiliadosTotais = FiliadoController::buscarPorGenero($diretorioId);
 
             <div class="card mb-2">
                 <div class="card-body p-3">
-                    <h5 class="card-title mb-1 text-primary"><i class="bi bi-file-text"></i> Comissões | <a class="text-primary small" href="?section=comissoes&diretorio=<?= $diretorioId ?>" role="button"> nova comissão</a></small></h5>
+                    <h5 class="card-title mb-1 text-primary"><i class="bi bi-file-text"></i> Comissões | <a class="text-primary small loading-modal" href="?section=comissoes&diretorio=<?= $diretorioId ?>" role="button"> nova comissão</a></small></h5>
                     <p class="mb-0 text-muted small mb-2">
                         Confira a comissão atualmente em vigor neste diretório.
                     </p>
@@ -134,7 +134,7 @@ $buscaFiliadosTotais = FiliadoController::buscarPorGenero($diretorioId);
 
             <div class="card mb-2">
                 <div class="card-body p-3">
-                    <h5 class="card-title mb-1 text-primary"><i class="bi bi-person-badge"></i> Mandatarios | <a class="text-primary small" href="?section=cargos-eletivos&diretorio=<?= $diretorioId ?>" role="button"> novo mandatário</a></small></h5>
+                    <h5 class="card-title mb-1 text-primary"><i class="bi bi-person-badge"></i> Mandatarios | <a class="text-primary small loading-modal" href="?section=cargos-eletivos&diretorio=<?= $diretorioId ?>" role="button"> novo mandatário</a></small></h5>
                     <p class="mb-0 text-muted small mb-2">
                         Confira todos os mandatários com mandatos vigente desse diretório.
                     </p>
