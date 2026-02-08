@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center align-items-center vh-100" id="wrapper">
+<div class="d-flex justify-content-center align-items-center vh-100" id="wrapper" style="margin-top: -60px;">
     <div id="page-content-wrapper" class="w-100">
         <div class="container">
             <div class="d-flex justify-content-center">
@@ -9,7 +9,7 @@
                                     use JairoJeffersont\Controllers\DiretorioController;
                                     use JairoJeffersont\Controllers\UsuarioController;
 
-                                    BASE_URL ?>/img/logo_white.png" class="card-img-top d-block mx-auto mb-4" alt="..." style="width: 100px; height: auto;">
+                                    BASE_URL ?>/img/logo_white.png" class="card-img-top d-block mx-auto mb-2" alt="..." style="width: 200px; height: auto;">
                         <h4 class="card-title text-center text-white"><?= $_ENV['APP_NAME'] ?></h4>
                         <p class="card-text text-center text-white">Novo usuário</p>
                         <?php

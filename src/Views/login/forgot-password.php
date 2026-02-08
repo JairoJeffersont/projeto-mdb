@@ -1,10 +1,10 @@
-<div class="d-flex justify-content-center align-items-center vh-100" id="wrapper">
+<div class="d-flex justify-content-center align-items-center vh-100" id="wrapper" style="margin-top: -60px;">
     <div id="page-content-wrapper" class="w-100">
         <div class="container">
             <div class="d-flex justify-content-center">
                 <div class="card bg-transparent border-0" style="min-width: 300px; max-width: 400px; width: 100%;">
                     <div class="card-body">
-                        <img src="<?php BASE_URL ?>/img/logo_white.png" class="card-img-top d-block mx-auto mb-4" alt="..." style="width: 100px; height: auto;">
+                        <img src="<?php BASE_URL ?>/img/logo_white.png" class="card-img-top d-block mx-auto mb-2" alt="..." style="width: 200px; height: auto;">
                         <h4 class="card-title text-center text-white"><?= $_ENV['APP_NAME'] ?></h4>
                         <p class="card-text text-center text-white">Digite seu email para receber a senha</p>
                         <?php

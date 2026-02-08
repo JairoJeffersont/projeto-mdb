@@ -5,7 +5,7 @@ define('BASE_PATH', dirname(__DIR__));
 $page = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['section'] ?? 'home');
 
 $routes = [
-    'home'  => BASE_PATH . '/src/Views/home/home.php',
+    'home'  => BASE_PATH . '/src/Views/diretorios/diretorios.php',
     'login' => BASE_PATH . '/src/Views/login/login.php',
     'logout' => BASE_PATH . '/src/Views/login/logout.php',
     'forgot-password' => BASE_PATH . '/src/Views/login/forgot-password.php',
