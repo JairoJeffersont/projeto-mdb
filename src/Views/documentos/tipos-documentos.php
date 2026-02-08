@@ -25,7 +25,7 @@ if ($buscaDiretorio['status'] != 'success') {
             <div class="card mb-2 ">
                 <div class="card-body p-1">
                     <a class="btn btn-primary btn-sm loading-modal" href="?section=home" role="button"><i class="bi bi-house-door-fill"></i> Início</a>
-                    <a class="btn btn-success btn-sm loading-modal" href="?section=ficha-diretorio&diretorio=<?= $diretorioId ?>" role="button"><i class="bi bi-arrow-left"></i> Voltar</a>
+                    <a class="btn btn-success btn-sm loading-modal" href="?section=documentos&diretorio=<?= $diretorioId ?>" role="button"><i class="bi bi-arrow-left"></i> Voltar</a>
                 </div>
             </div>
             <div class="card mb-2 ">
@@ -94,7 +94,7 @@ if ($buscaDiretorio['status'] != 'success') {
                             <input type="text" class="form-control form-control-sm" name="descricao" placeholder="Nome do tipo">
                         </div>
                         <div class="col-sm-4 col-12 text-start mt-2">
-                            <button type="submit" class="btn btn-success btn-sm px-4 confirm-action" name="btn_salvar" data-message="Deseja adicionar esse cargo eletivo?"><i class="bi bi-floppy"></i> Salvar </button>
+                            <button type="submit" class="btn btn-success btn-sm px-4 confirm-action" name="btn_salvar" data-message="Deseja adicionar esse tipo de documento?"><i class="bi bi-floppy"></i> Salvar </button>
                             <button type="submit" class="btn btn-primary btn-sm px-4 confirm-action" name="btn_inserir_tipos" data-message="Deseja inserir os tipos padrões?"><i class="bi bi-floppy"></i> Padrões </button>
 
                         </div>
@@ -117,7 +117,7 @@ if ($buscaDiretorio['status'] != 'success') {
                                 if ($buscaTipos['status'] == 'success') {
                                     foreach ($buscaTipos['data'] as $tipo) {
                                         echo '<tr>';
-                                        echo '<td>' . $tipo['descricao'] . '</td>';
+                                        echo '<td><a href="?section=editar-tipo-documento&documento='.$tipo['id'].'&diretorio='.$diretorioId.'">' . $tipo['descricao'] . '</a></td>';
                                         echo '<td>' . date('d/m/Y', strtotime($tipo['created_at'])) . ' | ' . $tipo['usuario']['nome'] . '</td>';
                                         echo '</tr>';
                                     }

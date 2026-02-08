@@ -38,15 +38,58 @@ class DocumentoController {
             if ($tipo) {
                 return ['status'  => 'conflict', 'message' => 'Esse tipo já está cadastrado'];
             }
-            
+
             $dados['id'] = Uuid::uuid4()->toString();
-            
+
             $usuario = DocumentoTipoModel::create($dados);
 
             return ['status'  => 'success', 'message' => 'Tipo de documento criado com sucesso', 'data' => $usuario->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
             return ['status'   => 'server_error', 'message'  => 'Erro interno do servidor', 'error_id' => $errorId];
+        }
+    }
+
+    public static function editarTipoDeDocumento(string $id, array $dados): array {
+        try {
+
+            $tipo = DocumentoTipoModel::find($id);
+
+            if (!$tipo) {
+                return ['status' => 'not_found', 'message' => 'Tipo de documento não encontrado'];
+            }
+
+            $existe = DocumentoTipoModel::where('descricao', $dados['descricao'])
+                ->where('diretorio_id', $dados['diretorio_id'])
+                ->where('id', '!=', $id)
+                ->exists();
+
+            if ($existe) {
+                return ['status' => 'conflict', 'message' => 'Esse tipo já está cadastrado'];
+            }
+
+            $tipo->update($dados);
+
+            return ['status' => 'success', 'message' => 'Tipo de documento atualizado com sucesso', 'data' => $tipo->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
+        }
+    }
+
+    public static function buscarTipoDeDocumento(string $id): array {
+        try {
+
+            $tipo = DocumentoTipoModel::find($id);
+
+            if (!$tipo) {
+                return ['status' => 'not_found', 'message' => 'Tipo de documento não encontrado', 'data' => []];
+            }
+
+            return ['status' => 'success', 'data' => $tipo->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
         }
     }
 }

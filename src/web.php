@@ -25,7 +25,8 @@ $routes = [
     'editar-comissao' => BASE_PATH . '/src/Views/comissoes/editar-comissao.php',
     'editar-cargo-comissao' => BASE_PATH . '/src/Views/cargos/editar-cargo-comissao.php',
     'eleicoes-municipais' => BASE_PATH . '/src/Views/eleicoes/eleicoes-municipais.php',
-    'tipos-documentos' => BASE_PATH . '/src/Views/documentos/tipos-documentos.php'
+    'tipos-documentos' => BASE_PATH . '/src/Views/documentos/tipos-documentos.php',
+    'editar-tipo-documento' => BASE_PATH . '/src/Views/documentos/editar-tipo-documento.php'
 
 
 ];
