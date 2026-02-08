@@ -234,6 +234,7 @@ CREATE TABLE
 CREATE TABLE
     documento (
         id CHAR(36) NOT NULL COMMENT 'UUID do documento',
+        ano INT NOT NULL COMMENT 'Ano do documento',
         tipo_id CHAR(36) NOT NULL COMMENT 'UUID do tipo de documento',
         titulo VARCHAR(255) NOT NULL COMMENT 'Título do documento',
         arquivo VARCHAR(255) NOT NULL COMMENT 'Caminho do arquivo do documento',

@@ -13,6 +13,7 @@ class DocumentoModel extends Model {
     public $timestamps = true;
 
     protected $fillable = [
+        'ano',
         'id',
         'tipo_id',
         'titulo',

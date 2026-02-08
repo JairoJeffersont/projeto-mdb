@@ -3,6 +3,8 @@
 namespace JairoJeffersont\Controllers;
 
 use JairoJeffersont\EasyLogger\Logger;
+use JairoJeffersont\FileUploader;
+use JairoJeffersont\Models\DocumentoModel;
 use JairoJeffersont\Models\DocumentoTipoModel;
 use Ramsey\Uuid\Uuid;
 
@@ -87,6 +89,48 @@ class DocumentoController {
             }
 
             return ['status' => 'success', 'data' => $tipo->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
+        }
+    }
+
+    public static function criarDocumento(array $dados): array {
+        try {
+
+            $mimes = [
+                'image/jpeg',
+                'image/png',
+                'application/pdf',                                                   // PDF
+                'application/msword',                                                // DOC
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
+                'application/vnd.ms-excel',                                          // XLS
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX
+            ];
+
+
+            $existe = DocumentoModel::where('titulo', $dados['titulo'])
+                ->whereYear('created_at', $dados['ano'])
+                ->exists();
+
+            if ($existe) {
+                return ['status' => 'conflict', 'message' => 'Já existe um documento com esse título nesse ano'];
+            }
+
+            if (isset($dados['arquivo'])) {
+                $result = FileUploader::uploadFile(PUBLIC_FOLDER . '/arquivos/diretorios/' . $dados['diretorio_id'], $dados['arquivo'], $mimes, 20);
+                if ($result['status'] == 'success') {
+                    $dados['arquivo'] = $result['file_path'];
+                } else {
+                    return $result;
+                }
+            }
+
+            $dados['id'] = Uuid::uuid4()->toString();
+
+            $documento = DocumentoModel::create($dados);
+
+            return ['status' => 'success', 'message' => 'Documento criado com sucesso', 'data' => $documento->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
