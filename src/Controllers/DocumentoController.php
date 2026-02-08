@@ -188,4 +188,91 @@ class DocumentoController {
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
         }
     }
+
+    public static function buscarDocumento(string $id): array {
+        try {
+
+            $documento = DocumentoModel::with(['tipo', 'diretorio', 'usuario'])->find($id);
+
+            if (!$documento) {
+                return ['status' => 'not_found', 'message' => 'Documento não encontrado', 'data' => []];
+            }
+
+            return ['status' => 'success', 'data' => $documento->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
+        }
+    }
+
+    public static function atualizarDocumento(string $id, array $dados): array {
+        try {
+
+            $mimes = [
+                'image/jpeg',
+                'image/png',
+                'application/pdf',                                                   // PDF
+                'application/msword',                                                // DOC
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // DOCX
+                'application/vnd.ms-excel',                                          // XLS
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX
+            ];
+
+            $documento = DocumentoModel::find($id);
+
+            if (!$documento) {
+                return ['status' => 'not_found', 'message' => 'Documento não encontrado'];
+            }
+
+            $existe = DocumentoModel::where('titulo', $dados['titulo'])
+                ->where('ano', $dados['ano'])
+                ->where('diretorio_id', $dados['diretorio_id'])
+                ->where('id', '!=', $id)
+                ->exists();
+
+            if ($existe) {
+                return ['status' => 'conflict', 'message' => 'Já existe um documento com esse título neste ano e diretório'];
+            }
+
+            if (isset($dados['arquivo'])) {
+                $result = FileUploader::uploadFile(PUBLIC_FOLDER . '/arquivos/diretorios/' . $dados['diretorio_id'], $dados['arquivo'], $mimes, 20);
+                if ($result['status'] == 'success') {
+                    $dados['arquivo'] = $result['file_path'];
+                } else {
+                    return $result;
+                }
+            }
+
+            $documento->update($dados);
+
+            return ['status' => 'success', 'message' => 'Documento atualizado com sucesso', 'data' => $documento->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
+        }
+    }
+
+    public static function apagarDocumento(string $id): array {
+    try {
+
+        $documento = DocumentoModel::find($id);
+
+        if (!$documento) {
+            return ['status' => 'not_found', 'message' => 'Documento não encontrado'];
+        }
+
+        if (!empty($documento->arquivo) && file_exists($documento->arquivo)) {
+            unlink($documento->arquivo);
+        }
+
+        $documento->delete();
+
+        return ['status' => 'success', 'message' => 'Documento excluído com sucesso'];
+
+    } catch (\Exception $e) {
+        $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+        return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
+    }
+}
+
 }

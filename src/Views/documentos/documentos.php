@@ -110,10 +110,9 @@ if ($buscaDiretorio['status'] != 'success') {
                 </div>
             </div>
             <div class="card mb-2">
-                <div class="card-body p-3">
-                    <h5 class="card-title mb-1 text-primary"><i class="bi bi-file-text"></i> Comissões | <a class="text-primary small loading-modal" href="?section=comissoes&diretorio=<?= $diretorioId ?>" role="button"> nova comissão</a></small></h5>
+                <div class="card-body p-3">                    
                     <p class="mb-0 text-muted small mb-2">
-                        Confira a comissão atualmente em vigor neste diretório.
+                        Documentos arquivados.
                     </p>
 
                     <form method="GET" class="mb-2">
@@ -165,11 +164,11 @@ if ($buscaDiretorio['status'] != 'success') {
                                 <?php
 
                                 $buscaDocumentos = DocumentoController::listarDocumentos($diretorioId, $anoGet, $tipoGet);
-                                
+
                                 if ($buscaDocumentos['status'] == 'success') {
                                     foreach ($buscaDocumentos['data'] as $documento) {
                                         echo '<tr>';
-                                        echo '<td>' . $documento['titulo'] . '</td>';
+                                        echo '<td><a href="?section=ficha-documento&documento='.$documento['id'].'&diretorio='.$diretorioId.'">' . $documento['titulo'] . '</a></td>';
                                         echo '<td>' . date('d/m/Y', strtotime($documento['created_at'])) . ' | ' . $documento['usuario']['nome'] . '</td>';
                                         echo '<tr>';
                                     }
