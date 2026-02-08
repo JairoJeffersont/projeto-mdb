@@ -136,4 +136,31 @@ class DocumentoController {
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
         }
     }
+
+    public static function listarDocumentos(string $diretorioId, ?int $ano = null, ?string $tipoId = ''): array {
+        try {
+
+            $query = DocumentoModel::with(['tipo', 'diretorio', 'usuario'])
+                ->where('diretorio_id', $diretorioId);
+
+            if ($ano !== null) {
+                $query->where('ano', $ano);
+            }
+
+            if ($tipoId !== '') {
+                $query->where('tipo_id', $tipoId);
+            }
+
+            $documentos = $query->orderBy('created_at', 'desc')->get();
+
+            if ($documentos->isEmpty()) {
+                return ['status' => 'empty', 'message' => 'Nenhum documento encontrado', 'data' => []];
+            }
+
+            return ['status' => 'success', 'data' => $documentos->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
+        }
+    }
 }

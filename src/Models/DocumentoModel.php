@@ -30,7 +30,7 @@ class DocumentoModel extends Model {
         return $this->belongsTo(DiretorioModel::class, 'diretorio_id');
     }
 
-    public function criador() {
+    public function usuario() {
         return $this->belongsTo(UsuarioModel::class, 'usuario_id');
     }
 }
