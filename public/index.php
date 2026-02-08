@@ -1,4 +1,5 @@
 <?php
+
 // Start output buffering to control when data is sent to the browser
 ob_start();
 

@@ -67,9 +67,10 @@ if ($buscaDocumento['status'] != 'success') {
 
                        
                         $result = DocumentoController::apagarDocumento($documentoId);                      
+                        
 
                         if ($result['status'] == 'success') {
-                            header('section=documentos&diretorio='.$diretorioId);
+                            header('Location: ?section=documentos&diretorio='.$diretorioId);
                         } else if ($result['status'] == 'server_error' || $result['status'] == 'conflict') {
                             echo '<div class="alert alert-danger rounded-1 px-2 py-1 mb-2" role="alert" data-timeout="3"><b>' . $result['message'] . '</b></div>';
                         } else if ($result['status'] == 'formato_nao_permitido'  || $result['status'] == 'tamanho_maximo_excedido') {
@@ -140,7 +141,7 @@ if ($buscaDocumento['status'] != 'success') {
                     }
 
                     ?>
-                    <a href="?section=ficha-documento&documento=da72ec11-71e6-4055-a19d-dcda6f5d2dd0&diretorio=5d1bd6a8-0443-11f1-8e2e-d519f895003e&download=1" class="btn btn-primary btn-sm px-4">
+                    <a href="?section=ficha-documento&documento=<?= $documentoId ?>&diretorio=<?= $diretorioId ?>&download=1" class="btn btn-primary btn-sm px-4">
                         <i class="bi bi-file-earmark"></i> Ver documento
                     </a>
 
