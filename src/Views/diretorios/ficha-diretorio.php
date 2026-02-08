@@ -46,6 +46,7 @@ $buscaFiliadosTotais = FiliadoController::buscarPorGenero($diretorioId);
                 <div class="card-body p-1">
                     <a class="btn btn-primary btn-sm loading-modal" href="?section=home" role="button"><i class="bi bi-house-door-fill"></i> Início</a>
                     <a class="btn btn-success btn-sm loading-modal" href="?section=ficha-diretorio&diretorio=<?= $diretorioId ?>" role="button"><i class="bi bi-arrow-clockwise"></i> Atualizar</a>
+                    <a class="btn btn-secondary btn-sm loading-modal" href="?section=documentos&diretorio=<?= $diretorioId ?>" role="button"><i class="bi bi-files"></i> Documentos</a>
                 </div>
             </div>
 

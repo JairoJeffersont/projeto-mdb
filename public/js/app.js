@@ -190,6 +190,13 @@ function initEvents() {
         const $municipioSelect = $form.find('.municipio');
         $municipioSelect.populateMunicipios(estadoId);
     });
+
+    window.history.pushState(null, "", window.location.href);
+
+    window.addEventListener("popstate", function () {
+        window.history.pushState(null, "", window.location.href);
+        this.alert('Use o botão voltar no aplicativo');
+    });
 }
 
 // =======================
