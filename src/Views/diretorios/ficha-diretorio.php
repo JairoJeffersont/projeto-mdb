@@ -32,6 +32,8 @@ $buscaGet       = $_GET['busca']        ?? '';
 $buscaFiliados = FiliadoController::listarTodosOsFiliados($diretorioId, $sexoGet, $ativoGet, $itensGet, $paginaGet, $ordemGet, $ordernarPorGet, $buscaGet);
 $buscaFiliadosTotais = FiliadoController::buscarPorGenero($diretorioId);
 
+
+
 ?>
 
 <div class="d-flex" id="wrapper">
@@ -235,7 +237,7 @@ $buscaFiliadosTotais = FiliadoController::buscarPorGenero($diretorioId);
 
             <div class="card mb-2 ">
                 <div class="card-body p-3">
-                    <h5 class="card-title mb-1 text-primary"><i class="bi bi-people-fill"></i> Filiados | <small><a class="text-primary" href="?section=novo-filiado&diretorio=<?= $diretorioId ?>" role="button"> adicionar filiado</a></small></h5>
+                    <h5 class="card-title mb-1 text-primary"><i class="bi bi-people-fill"></i> Filiados | <small><a class="text-primary loading-modal" href="?section=novo-filiado&diretorio=<?= $diretorioId ?>" role="button"> novo filiado</a></small></h5>
                     <p class="mb-0 text-muted small mb-2">
                         Confira a lista de filiados que fazem parte desse diretório.
                     </p>

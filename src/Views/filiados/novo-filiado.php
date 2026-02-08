@@ -61,7 +61,7 @@ if ($buscaDiretorio['status'] != 'success') {
                             'usuario_id'         => $_SESSION['user']['id'],
                         ];
 
-                        $result = FiliadoController::criarFiliado($dadosFiliado);
+                        $result = FiliadoController::criarFiliado($dadosFiliado, false);
 
                         if ($result['status'] == 'success') {
                             echo '<div class="alert alert-success rounded-1 px-2 py-1 mb-2" role="alert" data-timeout="3"><b>' . $result['message'] . '</b></div>';

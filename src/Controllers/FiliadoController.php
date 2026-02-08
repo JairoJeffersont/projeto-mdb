@@ -18,6 +18,7 @@ class FiliadoController {
             if (!is_null($diretorio_id)) {
                 $query->where('diretorio_id', $diretorio_id);
             }
+            $total = $query->count();
 
             if (!empty($sexo)) {
                 $query->where('sexo', $sexo);
@@ -34,7 +35,7 @@ class FiliadoController {
             $ordem = strtolower($ordem) === 'desc' ? 'desc' : 'asc';
             $query->orderBy($ordenarPor, $ordem);
 
-            $total = $query->count();
+            
             $total_paginas = ceil($total / $itens);
 
             $Filiados = $query->skip(($pagina - 1) * $itens)
