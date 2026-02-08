@@ -53,7 +53,20 @@ if ($buscaDocumento['status'] != 'success') {
                         } else {
                             echo '<div class="alert alert-info  rounded-1 px-2 py-1 px-2 py-1 mb-2" role="alert" data-timeout="3"><b>' . $result['message'] . '</b></div>';
                         }
-                    }                    
+                    }    
+                    
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['btn_apagar'])) {
+
+                        $result = DocumentoController::apagarTipoDocumento($documentoId);                       
+
+                        if ($result['status'] == 'success') {
+                            header('Location: ?section=editar-tipo-documento&diretorio='.$diretorioId.'&documento='.$documentoId);
+                        } else if ($result['status'] == 'server_error' || $result['status'] == 'confilct') {
+                            echo '<div class="alert alert-danger rounded-1 px-2 py-1 mb-2" role="alert" data-timeout="3"><b>' . $result['message'] . '</b></div>';
+                        } else {
+                            echo '<div class="alert alert-info  rounded-1 px-2 py-1 px-2 py-1 mb-2" role="alert" data-timeout="3"><b>' . $result['message'] . '</b></div>';
+                        }
+                    }    
 
                     ?>
                     <form class="row g-2 align-items-end" method="post">
@@ -62,6 +75,7 @@ if ($buscaDocumento['status'] != 'success') {
                         </div>
                         <div class="col-sm-4 col-12 text-start mt-2">
                             <button type="submit" class="btn btn-success btn-sm px-4 confirm-action" name="btn_salvar" data-message="Deseja atualizar esse tipo?"><i class="bi bi-floppy"></i> Salvar </button>                            
+                            <button type="submit" class="btn btn-danger btn-sm px-4 confirm-action" name="btn_apagar" data-message="Deseja apagar esse tipo?"><i class="bi bi-trash"></i> Apagar </button>                            
                         </div>
                     </form>
                 </div>

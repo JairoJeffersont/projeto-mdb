@@ -95,6 +95,31 @@ class DocumentoController {
         }
     }
 
+    public static function apagarTipoDocumento(string $id): array {
+        try {
+
+            $tipo = DocumentoTipoModel::find($id);
+
+            if (!$tipo) {
+                return ['status' => 'not_found', 'message' => 'Tipo de documento não encontrado'];
+            }
+
+            $possuiDocumentos = DocumentoModel::where('tipo_id', $id)->exists();
+
+            if ($possuiDocumentos) {
+                return ['status' => 'conflict', 'message' => 'Não é possível excluir: existem documentos vinculados a este tipo'];
+            }
+
+            $tipo->delete();
+
+            return ['status' => 'success', 'message' => 'Tipo de documento excluído com sucesso'];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor', 'error_id' => $errorId];
+        }
+    }
+
+
     public static function criarDocumento(array $dados): array {
         try {
 
